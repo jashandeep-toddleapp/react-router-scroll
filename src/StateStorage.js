@@ -8,11 +8,19 @@ export default class StateStorage {
   }
 
   read(location, key) {
-    return readState(this.getStateKey(location, key));
+    try {
+      return readState(this.getStateKey(location, key));
+    } catch (e) {
+      return [0, 0];
+    }
   }
 
   save(location, key, value) {
-    saveState(this.getStateKey(location, key), value);
+    try {
+      saveState(this.getStateKey(location, key), value);
+    } catch (e) {
+      // sessionStorage is not avaliable
+    }
   }
 
   getStateKey(location, key) {
